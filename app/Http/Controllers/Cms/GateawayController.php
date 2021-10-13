@@ -12,9 +12,10 @@ class GateawayController extends Controller
 {
     public function index(Request $request)
     {
-        $clirnt = new Client();
-        $client = new \GuzzleHttp\Client('GET', 'http://localhost:8002/Employee');
-        $request = $client->get ('http://localhost:8002/Employee');
+        dd("test");
+        $client = new Client();
+        // $client = new \GuzzleHttp\Client('GET', 'http://localhost:8002/Employee');
+        $request = $client->get('http://localhost:8002/Employee/fetch');
         $response = $request->getBody()->getContents();
         
         $data = json_decode($response, true);

@@ -5,16 +5,19 @@ namespace App\Http\Controllers\Cms;
 use App\EmployeeModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Ramsey\Uuid\Uuid;
+use GuzzleHttp\Client;
 
 class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
-        // dd($request->all());
-        //        Get all data Menu from database
-        $data = EmployeeModel::paginate($request->limit);
-        return $data;
+        $client = new \GuzzleHttp\Client();;
+        $request = $client->get('http://localhost:8002/Employee/fetch');
+        $response = $request->getBody()->getContents();
+        
+        $data = json_decode($response, true);
+
+        print("<pre>".print_r($data, true). "</pre>");
     }
 
     public function detail($id){
