@@ -15,58 +15,76 @@ class EmployeeController extends Controller
         $request = $client->get('http://localhost:8002/Employee/fetch');
         $response = $request->getBody()->getContents();
         
-        $data = json_decode($response, true);
+        return $data = json_decode($response, true);
+
+        print("<pre>".print_r($data, true). "</pre>");
+        
+        
+    }
+
+    public function detail($id){
+        // dd("test");
+        $client = new \GuzzleHttp\Client();;
+        $request = $client->get('http://localhost:8002/Employee/detail/'.$id);
+        $response = $request->getBody()->getContents();
+        
+        return $data = json_decode($response, true);
 
         print("<pre>".print_r($data, true). "</pre>");
     }
 
-    public function detail($id){
-        $data = EmployeeModel::find($id);
-        return $data;
-    }
-
-
-
     public function store(Request $request)
     {
-//        Get All data from request
-        // dd($request->all());
-        $data = $request->all();
-        $uuid1 = Uuid::uuid1();
-        $data["employee_id"] = $uuid1->toString();
-//        query create
-        $create = EmployeeModel::insert($data);
-//        check if create success or not
-        if ($create) {
-            return "success";
-        } else {
-            return "false";
-        }
+        // dd('test');
+        $client = new \GuzzleHttp\Client();;
+        $request = $client->post('http://localhost:8002/Employee/store');
+       
+        $response = $request->getBody()->getContents();
+        
+        return $data= json_decode($response, true);
+
+        print("<pre>".print_r($data, true). "</pre>");
+
+        // $response = $client->request('POST', 'http://localhost:8002/Employee/store', [
+        //     'json' => [
+        //         'user_roles_id' => '2',
+        //         'employee_firstname' => 'Putri',
+        //         'employee_middlename' => 'Nadya',
+        //         'employee_lastname' => 'En',
+        //         'employee_username' => 'Putrinadyaen',
+        //         'employee_password' => '1234567',
+        //         'employee_email' => 'putrinadya@gmail.com',
+        //         'employee_status' => '1',
+        //         'employee_image' => '',
+        //         'created_by' => '1',
+        //         'update_by' => '1'
+        //     ]
+        // ]);
+    //     $body = $response->getBody();
+    //     return $body_array = json_decode($body);
+    //     print_r($body_array);
+    // 
     }
+
     public function update(Request $request, $id)
     {
-//        Get All data from request
-        $data = $request->all();
-        // dd($id);
-//        query update
-        $update = EmployeeModel::where('employee_id',$id)->update($data);
-//        check if update success or not
-        // dd($update);
-        if ($update) {
-            return "success";
-        } else {
-            return "false";
-        }
+        $client = new \GuzzleHttp\Client();;
+        $request = $client->put('http://localhost:8002/Employee/update');
+        $response = $request->getBody()->getContents();
+        
+        return $data = json_decode($response, true);
+
+        print("<pre>".print_r($data, true). "</pre>");
     }
+
     public function delete($id)
     {
-//        query update
-        $delete = EmployeeModel::find($id)->delete();
-//        check if delete success or not
-        if ($delete) {
-            return "success";
-        } else {
-            return "false";
-        }
+       $client = new \GuzzleHttp\Client();;
+        $request = $client->delete('http://localhost:8002/Employee/delete');
+        $response = $request->getBody()->getContents();
+        
+        return $data = json_decode($response, true);
+
+        print("<pre>".print_r($data, true). "</pre>");
     }
 }
