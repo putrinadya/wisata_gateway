@@ -78,31 +78,31 @@ class EmployeeController extends Controller
         // print("<pre>".print_r($data, true). "</pre>");
 
         
-        // $client = new \GuzzleHttp\Client();
-        // $response = $client->request('PUT', 'http://localhost:8002/Employee/store', [
-        //     'json' => [
-        //         'user_roles_id' => '3',
-        //         'employee_firstname' => 'Putri3',
-        //         'employee_middlename' => 'Nadya3',
-        //         'employee_lastname' => 'En3',
-        //         'employee_username' => 'Putrinadyaen3',
-        //         'employee_password' => '12345678',
-        //         'employee_email' => 'putrinadya@gmail.com3',
-        //         'employee_status' => '1',
-        //         'employee_image' => '',
-        //         'created_by' => '1',
-        //         'update_by' => '1'
-        //     ]
-        // ]);
-        // $body = $response->getBody();
-        // return $body_array = json_decode($body, true);
-        // print("<pre>".print_r($body, true). "</pre>");
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('PUT', 'http://localhost:8002/Employee/store'.$id , [
+            'json' => [
+                'user_roles_id' => '5',
+                'employee_firstname' => 'Putri3',
+                'employee_middlename' => 'Nadya3',
+                'employee_lastname' => 'En3',
+                'employee_username' => 'Putrinadyaen3',
+                'employee_password' => '12345678',
+                'employee_email' => 'putrinadya@gmail.com3',
+                'employee_status' => '1',
+                'employee_image' => '',
+                'created_by' => '1',
+                'update_by' => '1'
+            ]
+        ]);
+        $body = $response->getBody();
+        return $body_array = json_decode($body, true);
+        print("<pre>".print_r($body, true). "</pre>");
 
-        $endpoint = url('PUT') . 'http://localhost:8002/Employee/store' . $request->id;
-        $body = json_encode($request->all());
-        $client = new Client();
-        $response = $client->put($endpoint, ['body' => json_encode($request->all())]);    
-        return redirect()->action('EmployeeController@update');
+        // $endpoint = url('PUT') . 'http://localhost:8002/Employee/store' . $request->id;
+        // $body = json_encode($request->all());
+        // $client = new Client();
+        // $response = $client->put($endpoint, ['body' => json_encode($request->all())]);    
+        // return redirect()->action('EmployeeController@update');
     
     }
 
